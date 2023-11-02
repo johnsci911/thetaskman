@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PageCourseDetailsController;
 use App\Http\Controllers\PageHomeController;
 use Illuminate\Support\Facades\Route;
 
@@ -14,4 +15,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [PageHomeController::class, '__invoke'])->name('home');
+Route::get('/', [PageHomeController::class, '__invoke'])
+    ->name('home');
+
+Route::get('courses/{course:slug}', [PageCourseDetailsController::class, '__invoke'])
+    ->name('course-details');

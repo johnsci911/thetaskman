@@ -18,8 +18,16 @@ class CourseFactory extends Factory
     public function definition(): array
     {
         return [
+            'slug' => $this->faker->slug,
             'title' => $this->faker->sentence,
             'description' => $this->faker->paragraph,
+            'tagline' => 'Course tagline',
+            'image' => 'image.png',
+            'learnings' => [
+                'Learn Laravel routes',
+                'Learn Laravel views',
+                'Learn Laravel commands',
+            ]
         ];
     }
 
