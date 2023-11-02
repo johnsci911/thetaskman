@@ -3,9 +3,9 @@
 use App\Models\Course;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
-uses (RefreshDatabase::class);
+uses(RefreshDatabase::class);
 
-it ('only returns released courses for released scope', function () {
+it('only returns released courses for released scope', function () {
     // Arrange
     Course::factory()->released()->create();
     Course::factory()->create();

@@ -2,10 +2,9 @@
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
-uses (RefreshDatabase::class);
+uses(RefreshDatabase::class);
 
-it ('gives back successful response for home page', function () {
+it('gives back successful response for home page', function () {
     $this->get(route('home'))
         ->assertOk();
 });
-

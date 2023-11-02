@@ -26,7 +26,7 @@ class CourseFactory extends Factory
     public function released(Carbon $date = null): self
     {
         return $this->state(
-            fn() => ['released_at' => $date ?? Carbon::now()]
+            fn () => ['released_at' => $date ?? Carbon::now()]
         );
     }
 }

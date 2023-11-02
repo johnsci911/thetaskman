@@ -4,9 +4,9 @@ use App\Models\Course;
 use Carbon\Carbon;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
-uses (RefreshDatabase::class);
+uses(RefreshDatabase::class);
 
-it ('shows courses overview', function () {
+it('shows courses overview', function () {
     // Arrange
     $courseOne = Course::factory()->released()->create();
     $courseTwo = Course::factory()->released()->create();
@@ -21,7 +21,7 @@ it ('shows courses overview', function () {
         ]);
 });
 
-it ('shows only released courses', function () {
+it('shows only released courses', function () {
     // Arrange
     $courseA = Course::factory()->released()->create();
     $courseB = Course::factory()->create();
@@ -33,7 +33,7 @@ it ('shows only released courses', function () {
 
 });
 
-it ('shows courses by release date', function () {
+it('shows courses by release date', function () {
     // Arrange
     $courseA = Course::factory()->released(Carbon::yesterday())->create();
     $courseB = Course::factory()->released(Carbon::now())->create();
