@@ -8,66 +8,40 @@ uses (RefreshDatabase::class);
 
 it ('shows courses overview', function () {
     // Arrange
-    Course::factory()->create([
-        'title' => 'Course A',
-        'description' => 'Description Course A',
-        'released_at' => Carbon::now(),
-    ]);
-
-    Course::factory()->create([
-        'title' => 'Course B',
-        'description' => 'Description Course B',
-        'released_at' => Carbon::now(),
-    ]);
+    $courseOne = Course::factory()->released()->create();
+    $courseTwo = Course::factory()->released()->create();
 
     // Act & Assert
     $this->get(route('home'))
         ->assertSeeText([
-            'Course A',
-            'Description Course A',
-            'Course B',
-            'Description Course B',
+            $courseOne->title,
+            $courseOne->description,
+            $courseTwo->title,
+            $courseTwo->description,
         ]);
 });
 
 it ('shows only released courses', function () {
     // Arrange
-    Course::factory()->create([
-        'title' => 'Course A',
-        'released_at' => Carbon::yesterday()
-    ]);
-
-    Course::factory()->create([
-        'title' => 'Course B',
-    ]);
+    $courseA = Course::factory()->released()->create();
+    $courseB = Course::factory()->create();
 
     // Act & Assert
     $this->get(route('home'))
-        ->assertSeeText([
-            'Course A'
-        ])
-        ->assertDontSee([
-            'Course B'
-        ]);
+        ->assertSeeText($courseA->title)
+        ->assertDontSee($courseB->title);
 
 });
 
 it ('shows courses by release date', function () {
     // Arrange
-    Course::factory()->create([
-        'title' => 'Course A',
-        'released_at' => Carbon::yesterday()
-    ]);
-
-    Course::factory()->create([
-        'title' => 'Course B',
-        'released_at' => Carbon::now()
-    ]);
+    $courseA = Course::factory()->released(Carbon::yesterday())->create();
+    $courseB = Course::factory()->released(Carbon::now())->create();
 
     // Act & Assert
     $this->get(route('home'))
-    ->assertSeeTextInOrder([
-        'Course B',
-        'Course A',
-    ]);
+        ->assertSeeTextInOrder([
+            $courseB->title,
+            $courseA->title,
+        ]);
 });
