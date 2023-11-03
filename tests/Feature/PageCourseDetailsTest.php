@@ -6,17 +6,9 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 
 uses(RefreshDatabase::class);
 
-it ('shows course details', function () {
+it('shows course details', function () {
     // Arrange
-    $course = Course::factory()->create([
-        'tagline' => 'Course tagline',
-        'image' => 'image.png',
-        'learnings' => [
-            'Learn Laravel routes',
-            'Learn Laravel views',
-            'Learn Laravel commands',
-        ]
-    ]);
+    $course = Course::factory()->released()->create();
 
     // Act & Assert
     $this->get(route('course-details', $course))
@@ -24,18 +16,27 @@ it ('shows course details', function () {
         ->assertSeeText([
             $course->title,
             $course->description,
-            'Course tagline',
-            'Learn Laravel routes',
-            'Learn Laravel views',
-            'Learn Laravel commands',
+            $course->tagline,
+            ...$course->learnings,
         ])
-        ->assertSee('image.png');
+        ->assertSee(asset("images/$course->image_name"));
 });
 
-it ('shows course video count', function () {
+it('does not find unreleased course', function () {
     // Arrange
     $course = Course::factory()->create();
-    Video::factory()->count(3)->create(['course_id' => $course->id]);
+
+    // Act & Assert
+    $this->get(route('course-details', $course))
+        ->assertNotFound();
+});
+
+it('shows course video count', function () {
+    // Arrange
+    $course = Course::factory()
+        ->released()
+        ->has(Video::factory()->count(3))
+        ->create();
 
     // Act & Assert
     $this->get(route('course-details', $course))
@@ -43,4 +44,3 @@ it ('shows course video count', function () {
         ->assertSeeText('3 videos');
 
 });
-

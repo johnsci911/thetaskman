@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('slug');
             $table->string('tagline');
-            $table->string('image');
+            $table->string('image_name');
             $table->json('learnings');
             $table->string('title');
             $table->string('description');

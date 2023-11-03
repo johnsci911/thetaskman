@@ -22,12 +22,12 @@ class CourseFactory extends Factory
             'title' => $this->faker->sentence,
             'description' => $this->faker->paragraph,
             'tagline' => 'Course tagline',
-            'image' => 'image.png',
+            'image_name' => 'image.png',
             'learnings' => [
                 'Learn Laravel routes',
                 'Learn Laravel views',
                 'Learn Laravel commands',
-            ]
+            ],
         ];
     }
 

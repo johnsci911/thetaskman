@@ -17,12 +17,12 @@ it('only returns released courses for released scope', function () {
         ->first()->id->toEqual(1);
 });
 
-it('has videos', function() {
+it('has videos', function () {
     // Arrange
     $course = Course::factory()->create();
 
     Video::factory()->count(3)->create([
-        'course_id' => $course->id
+        'course_id' => $course->id,
     ]);
 
     // Act & Assert
