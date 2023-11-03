@@ -4,6 +4,8 @@ use App\Models\Course;
 use Carbon\Carbon;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
+use function Pest\Laravel\{get};
+
 uses(RefreshDatabase::class);
 
 it('shows courses overview', function () {
@@ -12,7 +14,7 @@ it('shows courses overview', function () {
     $courseTwo = Course::factory()->released()->create();
 
     // Act & Assert
-    $this->get(route('home'))
+    get(route('home'))
         ->assertSeeText([
             $courseOne->title,
             $courseOne->description,
@@ -27,7 +29,7 @@ it('shows only released courses', function () {
     $courseB = Course::factory()->create();
 
     // Act & Assert
-    $this->get(route('home'))
+    get(route('home'))
         ->assertSeeText($courseA->title)
         ->assertDontSee($courseB->title);
 
@@ -39,7 +41,7 @@ it('shows courses by release date', function () {
     $courseB = Course::factory()->released(Carbon::now())->create();
 
     // Act & Assert
-    $this->get(route('home'))
+    get(route('home'))
         ->assertSeeTextInOrder([
             $courseB->title,
             $courseA->title,

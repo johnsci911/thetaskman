@@ -3,10 +3,12 @@
 use App\Models\Course;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
+use function Pest\Laravel\{get};
+
 uses(RefreshDatabase::class);
 
 it('gives back successful response for home page', function () {
-    $this->get(route('home'))
+    get(route('home'))
         ->assertOk();
 });
 
@@ -17,6 +19,6 @@ it('gives back successful response for course details page', function () {
         ->create();
 
     // Act & Assert
-    $this->get(route('course-details', $course))
+    get(route('course-details', $course))
         ->assertOk();
 });
