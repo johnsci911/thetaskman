@@ -1,4 +1,4 @@
-name: Test Laravel Github action
+name: Project tests
 on:
   push:
     branches:
